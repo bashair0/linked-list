@@ -69,4 +69,14 @@ export default class LinkedList {
       }
     }
   }
+
+  toString () {
+    let msg = ''
+    let temp = this.head
+    while (temp !== null) {
+      msg += `(${temp.data}) -> `
+      temp = temp.next
+    }
+    return (msg += null)
+  }
 }
