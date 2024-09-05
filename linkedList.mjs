@@ -79,4 +79,45 @@ export default class LinkedList {
     }
     return (msg += null)
   }
+
+  pop () {
+    let current = this.head
+    let prev = null
+    if (this.head === null) return null
+    while (current !== null) {
+      if (current.next === null) {
+        prev.next = null
+      }
+      prev = current
+      current = current.next
+    }
+  }
+
+  contains (value) {
+    let temp = this.head
+    if (this.head === null) return null
+    else {
+      while (temp !== null) {
+        let data = temp.data
+        if (data === value) return true
+        temp = temp.next
+      }
+    }
+    return false
+  }
+
+  find (value) {
+    let temp = this.head
+    let i = 0
+    if (this.head === null) return
+    else {
+      while (temp !== null) {
+        i++
+        let data = temp.data
+        if (data === value) return i
+        temp = temp.next
+      }
+    }
+    return null
+  }
 }
