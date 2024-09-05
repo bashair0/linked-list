@@ -33,4 +33,40 @@ export default class LinkedList {
   getSize () {
     return this.size
   }
+
+  getHead () {
+    let msg
+    if (this.head === null) msg = 'List is empty'
+    else {
+      msg = `Head is : ${this.head.data}`
+    }
+    return msg
+  }
+
+  getTail () {
+    let temp = this.head
+    if (this.head === null) return null
+    else {
+      while (temp !== null) {
+        temp = temp.next
+        if (temp.next === null) return temp.data
+      }
+    }
+  }
+
+  at (index) {
+    let temp = this.head
+    let i = 0
+    let element
+    if (this.head === null) return null
+    else {
+      while (temp !== null) {
+        i++
+        element = temp.data
+        if (i === index) return element
+        temp = temp.next
+        if (temp === null) return null
+      }
+    }
+  }
 }
