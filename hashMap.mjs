@@ -4,6 +4,7 @@ export default class HashMap {
   constructor () {
     this.bucket = []
     this.capacity = 16
+    this.size = 0
   }
 
   hash (key) {
@@ -22,13 +23,43 @@ export default class HashMap {
       let node = new LinkedList()
       node.prepend({ key, value })
       this.bucket[index] = node
+      this.size++
     } else {
       if (this.bucket[index].contains(key)) {
         this.bucket[index].replace(key, value)
       } else {
         this.bucket[index].append({ key, value })
+        this.size++
       }
     }
+  }
+
+  get (key) {
+    let index = this.hash(key)
+    let node = this.bucket[index]
+    if (node.get(key) === undefined) return null
+    return node.get(key)
+  }
+
+  has (key) {
+    let index = this.hash(key)
+    let node = this.bucket[index]
+    return node.contains(key)
+  }
+
+  remove (key) {
+    if (this.has(key)) {
+      let index = this.hash(key)
+      let node = this.bucket[index]
+      node.removeAt(node.find(key))
+      this.size--
+      return true
+    }
+    return false
+  }
+
+  length () {
+    return this.size
   }
 }
 
@@ -45,3 +76,5 @@ test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
+console.log(`from remove ${test.remove('lion')}`)
+console.log(`size ${test.length()}`)
