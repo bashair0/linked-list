@@ -38,7 +38,7 @@ export default class LinkedList {
     let msg
     if (this.head === null) msg = 'List is empty'
     else {
-      msg = `Head is : ${this.head.data}`
+      msg = `Head is : ${this.head.data.key} - ${this.head.data.value}`
     }
     return msg
   }
@@ -49,7 +49,7 @@ export default class LinkedList {
     else {
       while (temp !== null) {
         temp = temp.next
-        if (temp.next === null) return temp.data
+        if (temp.next === null) return temp.data.key
       }
     }
   }
@@ -74,7 +74,7 @@ export default class LinkedList {
     let msg = ''
     let temp = this.head
     while (temp !== null) {
-      msg += `(${temp.data}) -> `
+      msg += `(key: ${temp.data.key} - value: ${temp.data.value}) -> `
       temp = temp.next
     }
     return (msg += null)
@@ -98,12 +98,22 @@ export default class LinkedList {
     if (this.head === null) return null
     else {
       while (temp !== null) {
-        let data = temp.data
+        let data = temp.data.key
         if (data === value) return true
         temp = temp.next
       }
     }
     return false
+  }
+
+  replace (key, value) {
+    let temp = this.head
+    while (temp !== null) {
+      if (temp.data.key === key) {
+        temp.data.value = value
+      }
+      temp = temp.next
+    }
   }
 
   find (value) {
@@ -113,7 +123,7 @@ export default class LinkedList {
     else {
       while (temp !== null) {
         i++
-        let data = temp.data
+        let data = temp.data.key
         if (data === value) return i
         temp = temp.next
       }
