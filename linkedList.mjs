@@ -171,4 +171,13 @@ export default class LinkedList {
     if (current === null) return
     prev.next = current.next
   }
+
+  get (value) {
+    let current = this.head
+    while (current !== null) {
+      if (current.data.key === value) return current.data.value
+
+      current = current.next
+    }
+  }
 }
