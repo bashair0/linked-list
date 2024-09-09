@@ -5,6 +5,7 @@ export default class HashMap {
     this.bucket = []
     this.capacity = 16
     this.size = 0
+    this.loadFactor = 0.75
   }
 
   hash (key) {
@@ -19,6 +20,9 @@ export default class HashMap {
 
   set (key, value) {
     let index = this.hash(key)
+    if (this.length() > this.capacity * this.loadFactor) {
+      this.capacity = this.capacity * 2
+    }
     if (this.bucket[index] === undefined) {
       let node = new LinkedList()
       node.prepend({ key, value })
@@ -99,6 +103,12 @@ export default class HashMap {
     }
     return array
   }
+
+  print () {
+    this.bucket.forEach(bucket => {
+      console.log(bucket.toString())
+    })
+  }
 }
 
 const test = new HashMap()
@@ -114,3 +124,7 @@ test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
+test.set('moon', 'silver')
+test.print()
+console.log(test.entries())
+console.log(test.length())
