@@ -61,6 +61,44 @@ export default class HashMap {
   length () {
     return this.size
   }
+
+  clear () {
+    this.bucket = []
+    this.capacity = 16
+    this.size = 0
+  }
+
+  getData (str) {
+    let array = []
+    for (let i = 0; i < this.bucket.length; i++) {
+      if (this.bucket[i]) {
+        let current = this.bucket[i].head
+        while (current !== null) {
+          array.push(current.data[str])
+          current = current.next
+        }
+      }
+    }
+    return array
+  }
+
+  keys () {
+    return this.getData('key')
+  }
+
+  values () {
+    return this.getData('value')
+  }
+
+  entries () {
+    let keysArray = [...this.keys()]
+    let valuesArray = [...this.values()]
+    let array = []
+    for (let i = 0; i < keysArray.length; i++) {
+      array.push([keysArray[i], valuesArray[i]])
+    }
+    return array
+  }
 }
 
 const test = new HashMap()
@@ -76,5 +114,3 @@ test.set('ice cream', 'white')
 test.set('jacket', 'blue')
 test.set('kite', 'pink')
 test.set('lion', 'golden')
-console.log(`from remove ${test.remove('lion')}`)
-console.log(`size ${test.length()}`)
